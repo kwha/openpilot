@@ -559,6 +559,10 @@
         <translation>Sair</translation>
     </message>
     <message>
+        <source>dashcam</source>
+        <translation>dashcam</translation>
+    </message>
+    <message>
         <source>openpilot</source>
         <translation>openpilot</translation>
     </message>

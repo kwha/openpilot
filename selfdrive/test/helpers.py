@@ -12,6 +12,7 @@ from openpilot.tools.lib.logreader import LogIterable
 
 
 def set_params_enabled():
+  os.environ['PASSIVE'] = "0"
   os.environ['REPLAY'] = "1"
   os.environ['FINGERPRINT'] = "TOYOTA COROLLA TSS2 2019"
   os.environ['LOGPRINT'] = "debug"
@@ -20,6 +21,7 @@ def set_params_enabled():
   params.put("HasAcceptedTerms", terms_version)
   params.put("CompletedTrainingVersion", training_version)
   params.put_bool("OpenpilotEnabledToggle", True)
+  params.put_bool("Passive", False)
 
   # valid calib
   msg = messaging.new_message('liveCalibration')

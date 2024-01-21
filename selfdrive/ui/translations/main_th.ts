@@ -558,6 +558,10 @@
         <translation>ปิด</translation>
     </message>
     <message>
+        <source>dashcam</source>
+        <translation>กล้องติดรถยนต์</translation>
+    </message>
+    <message>
         <source>openpilot</source>
         <translation>openpilot</translation>
     </message>

@@ -69,6 +69,7 @@ class TestStartup(unittest.TestCase):
     pm = messaging.PubMaster(['can', 'pandaStates'])
 
     params = Params()
+    params.put_bool("Passive", False)
     params.put_bool("OpenpilotEnabledToggle", True)
 
     # Build capnn version of FW array

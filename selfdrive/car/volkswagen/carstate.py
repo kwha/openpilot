@@ -309,6 +309,7 @@ class CarState(CarStateBase):
         # sig_address, frequency
         ("LDW_02", 10)      # From R242 Driver assistance camera
       ]
+
     else:
       # Radars are here on CANBUS.cam
       messages += MqbExtraSignals.fwd_radar_messages

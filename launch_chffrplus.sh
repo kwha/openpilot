@@ -9,6 +9,11 @@ source "$BASEDIR/launch_env.sh"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 function agnos_init {
+  # wait longer for weston to come up
+  if [ -f "$BASEDIR/prebuilt" ]; then
+    sleep 5
+  fi
+
   # TODO: move this to agnos
   sudo rm -f /data/etc/NetworkManager/system-connections/*.nmmeta
 
@@ -29,6 +34,9 @@ function agnos_init {
 function launch {
   # Remove orphaned git lock if it exists on boot
   [ -f "$DIR/.git/index.lock" ] && rm -f $DIR/.git/index.lock
+
+  # Pull time from panda
+  $DIR/selfdrive/boardd/set_time.py
 
   # Check to see if there's a valid overlay-based update available. Conditions
   # are as follows:
@@ -69,19 +77,14 @@ function launch {
   export PYTHONPATH="$PWD"
 
   # hardware specific init
-  if [ -f /AGNOS ]; then
-    agnos_init
-  fi
+  agnos_init
 
   # write tmux scrollback to a file
   tmux capture-pane -pq -S-1000 > /tmp/launch_log
 
   # start manager
   cd selfdrive/manager
-  if [ ! -f $DIR/prebuilt ]; then
-    ./build.py
-  fi
-  ./manager.py
+  ./build.py && ./manager.py
 
   # if broken, keep on screen error
   while true; do sleep 1; done

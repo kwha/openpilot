@@ -557,6 +557,10 @@
         <translation>Çık</translation>
     </message>
     <message>
+        <source>dashcam</source>
+        <translation>araç yol kamerası</translation>
+    </message>
+    <message>
         <source>openpilot</source>
         <translation>openpilot</translation>
     </message>
