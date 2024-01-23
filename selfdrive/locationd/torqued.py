@@ -24,15 +24,15 @@ FACTOR_SANITY_QLOG = 0.5
 FRICTION_SANITY = 0.5
 FRICTION_SANITY_QLOG = 0.8
 STEER_MIN_THRESHOLD = 0.02
-MIN_FILTER_DECAY = 5
-MAX_FILTER_DECAY = 10
+MIN_FILTER_DECAY = 50
+MAX_FILTER_DECAY = 250
 LAT_ACC_THRESHOLD = 1
 STEER_BUCKET_BOUNDS = [(-0.5, -0.3), (-0.3, -0.2), (-0.2, -0.1), (-0.1, 0), (0, 0.1), (0.1, 0.2), (0.2, 0.3), (0.3, 0.5)]
 MIN_BUCKET_POINTS = np.array([100, 300, 500, 500, 500, 500, 300, 100])
 MIN_ENGAGE_BUFFER = 2  # secs
 
 VERSION = 1  # bump this to invalidate old parameter caches
-ALLOWED_CARS = ['toyota', 'hyundai', 'volkswagen']
+ALLOWED_CARS = ['toyota', 'hyundai']
 
 
 def slope2rot(slope):
@@ -214,7 +214,7 @@ class TorqueEstimator(ParameterEstimator):
     return msg
 
 
-def main():
+def main(demo=False):
   config_realtime_process([0, 1, 2, 3], 5)
 
   pm = messaging.PubMaster(['liveTorqueParameters'])
@@ -242,4 +242,8 @@ def main():
       params.put_nonblocking("LiveTorqueParameters", msg.to_bytes())
 
 if __name__ == "__main__":
-  main()
+  import argparse
+  parser = argparse.ArgumentParser(description='Process the --demo argument.')
+  parser.add_argument('--demo', action='store_true', help='A boolean for demo mode.')
+  args = parser.parse_args()
+  main(demo=args.demo)
